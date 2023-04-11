@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://dedlar2vupiy7"]
+
+[ext_resource type="Script" path="res://Mob.gd" id="1_2nqvw"]
+[ext_resource type="Texture2D" uid="uid://b1p2xchgtokq" path="res://art/enemyFlyingAlt_1.png" id="2_erb5h"]
+[ext_resource type="Texture2D" uid="uid://efxoywwu8lng" path="res://art/enemyFlyingAlt_2.png" id="3_dbsmv"]
+[ext_resource type="Texture2D" uid="uid://bd38bjnakeui3" path="res://art/enemySwimming_1.png" id="4_vc6ah"]
+[ext_resource type="Texture2D" uid="uid://kihfavf7sp7l" path="res://art/enemySwimming_2.png" id="5_o02km"]
+[ext_resource type="Texture2D" uid="uid://djgymqd6saq6f" path="res://art/enemyWalking_1.png" id="6_767nh"]
+[ext_resource type="Texture2D" uid="uid://dcndw2tn7ehpc" path="res://art/enemyWalking_2.png" id="7_hgn2r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v7rff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_erb5h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dbsmv")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vc6ah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o02km")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_767nh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_hgn2r")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t2d6y"]
+radius = 36.0
+height = 84.0
+
+[node name="Mob" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_2nqvw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_v7rff")
+animation = &"fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_t2d6y")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_entered"]
